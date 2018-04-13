@@ -1,6 +1,6 @@
 - 标签： `Git`
 - 时间： `2018-04-05`
-- 更新： ``
+- 更新： `2018-04-13`
 
 ## `git` 工作流程
 
@@ -10,9 +10,17 @@
 
 1. 切换至项目 `master` 分支， 执行 `git pull --rebase origin master` 操作，更新本地主分支代码；
 
-2. 依据 `master` 分支执行 `git checkout -b branchName` 操作来创建个人分支，以后某一功能的开发和测试就在该分支进行；
+2. 依据 `master` 分支执行 
 
-3. 每一次修改后执行 `git status`, `git diff` 查看被修改的文件， 然后执行 `git add .` 添加修改文件至索引区，最后执行 `git commit -m ''` 提交本次修改至本地仓库；
+   * `git checkout -b branchName` 或 `git checkout -b branchName origin/remoteBranch` 
+
+   命令来创建个人分支，以后某一功能的开发和测试就在该分支进行；
+
+3. 每一次修改后执行 `git status`, `git diff` 查看被修改的文件， 然后执行 `git add .` 添加修改文件至索引区，最后执行 
+
+   * `git commit -m ''` 或 `git commit -a -m ''` 
+
+   提交本次修改至本地仓库；
 
 4. 以后每一次修改结束都会重复执行 `步骤3`；
 
@@ -24,11 +32,17 @@
  
 6. 在测试环境测试过程中发现 bug 会不断的修改本地分支代码，最后提交本次修改（步骤3），更新主分支代码并提交本地分支至远程仓库（步骤5）；
 
-7. 当测试工作结束后，会发现本地分支上存在很多的 `commit` 提交记录，此时执行 `git rebase -i` 将多个提交记录合并成一个, 然后执行 `` 强制更新远程仓库下同名分支；
+7. 当测试工作结束后，会发现本地分支上存在很多的 `commit` 提交记录，此时执行 `git rebase -i` 将多个提交记录合并成一个, 然后执行 
+
+  * `git push origin branchName -f` 
+
+  强制更新远程仓库下同名分支；
 
 8. 通过命令 `git show commit` 或 图形化工具 或 查看远程仓库 核查修改内容，这一步是为了防止有误操作；
 
-9. 最后 `git checkout master` 切换至主分支，`git pull --rebase origin master` 更新主分支代码，`git rebase branchName` 或 `git cherry-pick commit` 合并修改至主分支， 最后 `git push origin master` 更新远程仓库；
+9. 最后 `git checkout master` 切换至主分支，`git pull --rebase origin master` 更新主分支代码，
+
+   `git rebase branchName` 或 `git cherry-pick commit` 合并修改至主分支， 最后 `git push origin master` 更新远程仓库；
 
 10. 至此特定功能开发完毕，下面具体解释每一步操作。
  
