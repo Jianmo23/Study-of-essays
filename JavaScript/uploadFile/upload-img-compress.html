@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片压缩上传</title>
+</head>
+<body>
+    <input type="file" id="filechooser" accept="image/*" multiple />
+    <ul class="img-list"></ul>
+    <a id="upload">上传图片</a>
+</body>
+<script src="/public/jquery-2.1.1.min.js"></script>
+<script>
+    var filechooser = document.querySelector('#filechooser');
+    //
+    var maxSize = ;
+
+    filechooser.addEventListener('change', function (evt) {
+        console.log(evt)
+        var files = this.files || evt.target.files || [];
+
+        if (!files.length) { return; }
+        if (files.length > 6) {
+            alert('最多上传6张')
+            return;
+        }
+
+        files.forEach(function (file, index) {
+            if (!/\/(?:jpeg|png|gif)/i.test(file.type)) { return; }
+
+            var reader = new FileReader();
+
+            var li = document.createElement('li');
+            li.innerHTML = '<div class="progress"><span></span></div>';
+            $('.img-list').append($(li));
+
+            reader.onload = function () {
+                var result = this.result;
+                console.log(result);
+
+                var img = new Image();
+                img.src = result;
+
+                if (result.length <= maxSize) {
+                    $(li).css("background-image": `url(${result})`)
+                    img = null;
+
+                    upload(result, file.type, $(li));
+
+                    return;
+                }
+
+                console.log('img.complete: ', img.complete)
+                if (img.complete) {
+                    callback();
+                } else {
+                    img.onload = callback;
+                }
+
+                function callback () {
+                    var data = compress(img);
+
+                    $(li).css("background-image": `url(${data})`);
+
+                    upload(data, file.type, $(li));
+
+                    img = null;
+                }
+            }
+
+            reader.readAsDataURL(file);
+        });
+    }, false);
+
+    function compress(img) {
+        var initSize = img.src.length;
+        var width = img.width;
+        var height = img.height;
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+        var ratio;
+        if ((ratio = width * height / 4000000)> 1) {
+            ratio = Math.sqrt(ratio); // 返回一个数的平方根
+
+            width /= ratio;
+            height /= ratio;
+        } else {
+            ratio = 1;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // 铺底色
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 如果图片像素大于100万则使用瓦片绘制
+        var count;
+        if ((count = width * height / 1000000) > 1) {
+            count = ~~(Math.sqrt(count) + 1); // 计算要分成多少块瓦块
+
+            // 计算每块瓦片的宽和高
+            var nw = ~~(width / count);
+            var nh = ~~(height / count);
+
+            tCanvas.width = nw;
+            tCanvas.height = nh;
+
+            for (var i = 0; i < count; i++) {
+                for (var j = 0; j < count; j++) {
+                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+
+                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+                }
+            }
+        } else {
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+
+        // 进行最小压缩
+        var ndata = canvas.toDataURL('image/jpeg', 0.1);
+
+        console.log('压缩前：' + initSize);
+        console.log('压缩后：' + ndata.length);
+        console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
+
+        // ???
+        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+
+        return ndata;
+    }
+
+    function upload() {
+        
+    }
+</script>
+</html>
