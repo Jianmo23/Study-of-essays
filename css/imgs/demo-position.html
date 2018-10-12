@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *,
+    *::after,
+    *::before {
+        margin: 0;
+        padding: 0;
+    }
+
+    .f0 {
+        font-size: 0 !important;
+    }
+
+    .wrap {
+        border: 1px solid #f40;
+        text-align: center;
+    }
+
+    .p15 {
+        padding: 15px;
+    }
+
+    .relative {
+        position: relative;
+    }
+
+    .absolute {
+        position: absolute;
+    }
+
+    .fixed {
+        position: fixed;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .box {
+        width: 33.3%;
+        font-size: 1rem;
+    }
+
+    .box1 {
+        background-color: #ff0000;
+    }
+
+    .box2 {
+        background-color: #00ff00;
+    }
+
+    .box3 {
+        background-color: #0000ff;
+    }
+    .big {
+    	width: 200px;
+    	height: 200px;
+    	border: 5px solid #000;
+    	padding: 10px;
+    }
+    .small {
+    	width: 50px;
+    	height: 50px;
+    	border: 5px solid #000;
+    	padding: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <p class="p15">默认 position: static;</p>
+    <div class="f0 wrap">
+        <span class="box box1">box1</span>
+        <span class="box box2">box2</span>
+        <span class="box box3">box3</span>
+    </div>
+
+    <p class="p15">position: relative;</p>
+    <div class="f0 wrap">
+        <span class="box box1">box1</span>
+        <span class="box box2 relative" style="top: 50%;left:10px">box2</span>
+        <span class="box box3">box3</span>
+    </div>
+
+    <p class="p15">position: absolute;</p>
+    <div class="f0 wrap relative">
+        <span class="box box1">box1</span>
+        <span class="box box2 absolute" style="left: 10px;top:50%">box2</span>
+        <span class="box box3">box3</span>
+    </div>
+
+    <p class="p15">定位之间的影响</p>
+    <p class="p15">relative, absolute 设置百分比偏移量</p>
+    <div class="box1 relative big">
+    	<div class="box2 absolute small" style="left:100%;top:100%"></div>
+    </div>
+
+    <p class="p15">absolute, absolute 设置百分比偏移量</p>
+    <div class="box1 absolute big">
+    	<div class="box2 absolute small" style="left:100%;top:100%"></div>
+    </div>
+</body>
+
+</html>
