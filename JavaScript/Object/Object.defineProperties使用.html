@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// https://segmentfault.com/a/1190000011294519
+	// 方法直接在一个对象上定义一个或多个新的属性或修改现有属性，并返回该对象。
+	// 语法：Object.defineProperties(obj, props)
+	var obj = {};
+	Object.defineProperties(obj, {
+		name: {
+			value: 'Yyy',
+			configurable: true,
+			enumerable: true,
+			writable: true
+		},
+		age: {
+			value: 26,
+			configurable: true,
+			enumerable: true,
+			writable: true
+		}
+	});
+	console.log(obj);
+	console.log(Object.keys(obj));
+</script>
+</html>

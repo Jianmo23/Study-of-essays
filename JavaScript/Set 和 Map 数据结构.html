@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	console.log('1-Set')
+	var set = new Set();
+	console.log(set);
+
+	set.add(1);
+	console.log(set.size)
+	console.log('-----------------------')
+
+	console.log('NaN ===/== NaN false')
+	var a = NaN;
+	var b = NaN;
+	console.log(NaN == NaN);
+	console.log(NaN === NaN);
+	console.log('-----------------------')
+
+	console.log('Set内部 NaN == NaN true')
+	set.clear();
+	set.add(a);
+	set.add(b);
+	console.log(set)
+	console.log(set.size)
+	console.log('-----------------------')
+
+	console.log('两个对象总是不相等的')
+	set.clear();
+	set.add({});
+	set.add({});
+	console.log(set)
+	console.log(set.size)
+	console.log('-----------------------')
+
+	console.log('Set 实例的属性和方法')
+	set.clear();
+	console.log(set.constructor)
+	console.log(set.constructor === Set)
+	console.log(set.add(1))
+	console.log(set.has(1))    // 返回Set结构本身
+	console.log(set.delete(1)) // 返回布尔值
+	console.log(set.has(1))    // 返回布尔值
+	console.log(set.clear())   // 无返回值
+
+	console.log('-----------------------')
+	console.log(set.add(1).add(2))
+
+	console.log('Set 遍历操作')
+	for (let key of set.keys()) {
+		console.log(key)
+	}
+	for (let value of set.values()) {
+		console.log(value)
+	}
+	for (let entry of set.entries()) {
+		console.log(entry)
+	}
+	console.log(set.keys() === set.values())
+	console.log(Set.prototype[Symbol.iterator] === Set.prototype.values)
+	for (let value of set) {
+		console.log(value)
+	}
+	set.forEach((key, value) => console.log(key + ': ' + value))
+	console.log('-----------------------')
+
+
+	console.log('Set 添加对象')
+	set.clear();
+	set.add({name: 'zyy'}).add({age: 27})
+	for (let key of set.keys()) {
+		console.log(key)
+	}
+	for (let value of set.values()) {
+		console.log(value)
+	}
+	for (let entry of set.entries()) {
+		console.log(entry)
+	}
+	for (let value of set) {
+		console.log(value)
+	}
+
+	set.forEach((key, value) => console.log(key + ': ' + value))
+	console.log('-----------------------')
+
+	console.log('数组的map和filter方法也可以间接用于 Set')
+	set.clear();
+	var set2 = new Set([1,2,3,2]);
+	console.log(set2)
+	console.log(new Set([...set2].map(val => val * 2)))
+	console.log(new Set([...set2].filter((val, index) => index % 2 === 0)))
+	console.log('-----------------------')
+
+	console.log('使用 Set 可以很容易地实现并集（Union）、交集（Intersect）和差集（Difference）。')
+	var s1 = new Set([1,2,3]);
+	var s2 = new Set([4,3,2]);
+	console.log(s1)
+	console.log(s2)
+	console.log('并集：', new Set([...s1, ...s2]))
+	console.log('交集：', new Set([...s1].filter(val => s2.has(val))));
+	console.log('差集：', new Set([...s1].filter(val => !s2.has(val))))
+	console.log('-----------------------')
+
+	console.log(new Set(Array.from(s1, val => val * 2)))
+
+	console.log('2-WeakSet')
+	console.log('WeakSet 与 Set 的区别：')
+	console.log('1.WeakSet 的成员只能是对象，而不能是其他类型的值。')
+	var ws = new WeakSet();
+	// console.log(ws.add(1))
+	// console.log(ws.add(new Symbol()))
+	console.log(ws.add({name: 'zyy'}))
+	console.log(ws.size)
+	console.log('2.WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中');
+
+	console.warn('WeakSet 不可遍历')
+	console.log('-----------------------')
+
+	var ws2 = new WeakSet();
+	var window = {};
+	var array = [];
+	console.log(ws2.add(window).add(array));
+	console.log(ws2.has(window))
+	console.log(ws2.delete(array))
+	console.log(ws2.has(array))
+	console.log('-----------------------')
+
+	console.log('3-Map')
+	var m = new Map();
+	console.log(m.set('name', 'zyy').set({}, 'object'));
+	console.log(m.has('name'))
+	console.log(m.delete({}))
+	console.log(m)
+	console.log(m.get('name'))
+	console.log('-----------------------')
+
+	var m2 = new Map([
+		['name', 'zyy'],
+		['age', 27]
+		]);	
+	console.log(m2)
+	console.log(m2.has('name'))
+	console.log(m2.get('name'))
+
+	// Map构造函数接受数组作为参数，实际上执行的是下面的算法。
+	m2.clear();
+	var items = [
+		['name', 'yyy'],
+		['age', 27]
+		];
+	items.forEach(([key, value]) => m2.set(key, value))
+	console.log(m2)
+
+	// 不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构都可以当作Map构造函数的参数
+	var s = new Set([['age', 27]]);
+	var m3 = new Map(s);
+	console.log(m3)
+	console.log(m3.get('age'))
+	console.log('-----------------------')
+	
+	console.log('Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。这就解决了同名属性碰撞（clash）的问题')
+
+	console.log('map 遍历')
+	var m4 = new Map([
+		['name', 'yyy'],
+		['age', 26]
+		]);
+
+	console.log('-----------------------')
+	for (let key of m4.keys()){
+		console.log(key)
+	}
+	console.log('-----------------------')
+	for (let value of m4.values()){
+		console.log(value)
+	}
+	console.log('-----------------------')
+	for (let entry of m4.entries()){
+		console.log(entry)
+	}
+	console.log('-----------------------')
+	for (let [key, value] of m4.entries()){
+		console.log(key, value)
+	}
+	console.log('-----------------------')
+	for (let [key, value] of m4){
+		console.log(key, value)
+	}
+	console.log('-----------------------')
+
+	console.log(Map.prototype[Symbol.iterator] === m4.entries)
+	console.log(m4[Symbol.iterator] === m4.entries)
+
+	console.log('-----------------------')
+	// key value 位置对调
+	m4.forEach((value, key) => console.log("Key: %s, Value: %s", key, value));
+
+	console.log('-----------------------')
+
+	console.log('Map 结构转为数组结构，比较快速的方法是使用扩展运算符（...）')
+	console.log([...m4])
+	console.log([...m4.keys()])
+	console.log([...m4.values()])
+	console.log([...m4.entries()])
+
+	console.log('-----------------------')
+	console.log('forEach方法还可以接受第二个参数，用来绑定this');
+
+	var reportor = {
+		report (key, value) {
+			console.log('Key: %s, Value: %s', key, value);
+		}
+	}
+	m4.forEach(function (value, key, map) {
+		// console.log(map)
+	   this.report(key, value)
+	}, reportor);
+
+
+	console.log('-----------------------')
+	console.log('Map 转化为对象')
+	function mapToObject (map) {
+		var o = Object.create(null);
+
+		map.forEach((value, key) => o[key] = value);
+
+		return o;
+	}
+	console.log(mapToObject(m4));
+
+	console.log('-----------------------')
+	console.log('对象转化为Map')
+	function objectToMap (o) {
+		var m = new Map();
+
+		for (let key of Object.keys(o)) {
+			m.set(key, o[key])
+		}
+
+		return m;
+	}
+	var oo = {
+		name: 1,
+		age: 2
+	}
+	console.log(oo)
+	console.log(objectToMap(oo))
+	console.log('-----------------------')
+
+	console.log('4-WeakMap')
+	console.log('WeakMap与Map的区别有两点:')
+	console.log('1、WeakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名')
+	var wm = new WeakMap();
+	// wm.set(1, 2);
+	// wm.set(null, 2);
+	wm.set({}, 2);
+	console.log('2、WeakMap的键名所指向的对象，不计入垃圾回收机制。')
+	const wm2 = new WeakMap();
+	let key = {};
+	let obj = {foo: 1};
+
+	wm2.set(key, obj);
+	obj = null;
+	console.log(wm2.get(key))
+	console.log(wm2.has(key))
+	console.log(wm2.delete(key))
+	console.log(wm2.has(key))
+	console.warn('注意，WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用。')
+
+</script>
+</html>

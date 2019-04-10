@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// 对象是由多个名/值对组成的无序的集合。
+	// Object.defineProperty(obj, prop, descriptor);
+	// obj 必需。目标对象 
+	// prop 必需。需定义或修改的属性的名字
+	// descriptor 必需。目标属性所拥有的特性
+	// https://segmentfault.com/a/1190000007434923
+	
+	var o = {};
+	// 数据描述
+	Object.defineProperty(o, 'age', {
+		value: 27, // 默认值为undefined
+		configurable: true, // 默认是false，是否可以删除目标属性或是否可以再次修改属性的特性（writable, configurable, enumerable）两个作用：1、目标属性是否可以使用delete删除；2、目标属性是否可以再次设置特性；
+		enumerable:false,   // 默认是false，此属性是否可以被枚举（使用for...in或Object.keys()）
+		writable: false     // 默认是false，属性的值是否可以重写
+	});
+	// 注意：当设置了configurable = false 时, 不能修改除writable以外的属性！并且只有当writable = true时可被修改为false，否则会报错！！！
+	// https://www.jianshu.com/p/e7cae8e0d885
+	// 注意：如果是对象字面量创建属性，则configurable，enumerable, writable 默认都是true
+
+	// 存取器描述
+	var initValue = 'Yyy';
+	Object.defineProperty(obj, 'name', {
+		set: function (value) {
+			// 当设置值的时候触发的函数,设置的新值通过参数value拿到
+			initValue = value;
+		}, // 默认是undefined
+		get: function () {
+			//当获取值的时候触发的函数
+			return initValue; 
+		}, // 默认是undefined
+		configurable: true,
+		enumerable: true
+	});
+	// 注意：当设置了getter或setter方法，不允许使用writable和value这两个属性，否则会报错！！！
+
+	// 兼容性
+	// 在ie8下只能在DOM对象上使用，尝试在原生的对象使用 Object.defineProperty()会报错。
+</script>
+</html>

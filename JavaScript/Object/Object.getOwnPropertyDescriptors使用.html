@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// https://segmentfault.com/a/1190000011294519
+    // Object.getOwnPropertyDescriptors()
+    // 功能: 所指定对象的所有自身属性的描述符，如果没有任何自身属性，则返回空对象。
+
+    // Object.getOwnPropertyDescriptors(obj)
+
+    var person = {
+    	name: 'Yyy',
+    	age: 26
+    };
+
+    console.log(Object.getOwnPropertyDescriptor(person, 'age'));
+    console.log(Object.getOwnPropertyDescriptors(person));
+
+    var obj = {};
+    console.log(Object.getOwnPropertyDescriptors(obj));
+
+    var o = {};
+    Object.defineProperty(o, 'key', {})
+    console.log(Object.getOwnPropertyDescriptor(o, 'key'));
+    console.log(Object.getOwnPropertyDescriptors(o));
+
+    // 对比发现：
+    // 通过字面量创建的对象属性，其取值器属性默认均为true（configurable, enumerable, writable）
+    // 通过Object.defineProperty(obj, prop, {}) 创建的对象属性，其取值器属性默认均为false（configurable, enumerable, writable）
+</script>
+</html>
