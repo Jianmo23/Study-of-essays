@@ -12,7 +12,7 @@ var proxy = new Proxy(target, handler);
 * target: 拦截的目标对象， Object || function
 * handler: 定制拦截行为，
 
-** 如果handler没有设置任何拦截，那就等同于直接通向原对象。**
+**如果handler没有设置任何拦截，那就等同于直接通向原对象**
 ```
 ## 拦截器方法
 ```js
@@ -90,10 +90,12 @@ var proxy = new Proxy({}, {
 ## 拦截器方法注意事项
 ### get(target, prop[, receiver])
 target: 目标对象；
+
 prop: 属性名；
+
 receiver: proxy示例本身（严格地说，是操作行为所针对的对象；
 
-注意：
+**注意：**
 * 如果对象中一个属性是不可配置且不可写(`configurable === false && writable === false`)，则拦截器不能修改该属性，否则通过Proxy对象访问该属性会报错；
 ```js
 var obj = Object.defineProperty({}, 'foo', {
@@ -231,7 +233,7 @@ delete proxy.age // Property age is not configurable; false;
 * `Object.keys()`
 * `for...in 循环`
 
-** 注意：**
+**注意：**
 1. 使用 `Object.keys` 方法时，有三类属性会被ownKeys方法自动过滤，不会返回:
    _ 目标对象上不存在的属性
    _ 属性名为 `Symbol` 值
@@ -333,7 +335,7 @@ getPrototypeOf 主要用来拦截获取对象原型，具体来说，拦截下�
 * Reflect.getPrototypeOf()
 * instanceof
 
-** 注意： **
+**注意：**
 * `getPrototypeOf` 方法的返回值必须是对象或者null，否则报错。
 * 如果目标对象不可扩展（non-extensible）， `getPrototypeOf` 方法必须返回目标对象的原型对象。
 
@@ -364,7 +366,9 @@ Object.setPrototypeOf(proxy, {}); // TypeError
 
 ### apply(target, bindingObject, args)
 target: 目标对象；
+
 bindingObject: 目标对象的上下文对象（this）；
+
 args: 目标对象的参数数组；
 
 ```js
@@ -383,7 +387,9 @@ proxy.apply(null, [5, 6]); // 22
 
 ### construct(target, args[, newTarget])
 target: 目标对象；
+
 args: 构造函数的参数对象；
+
 newTarget: 创造实例对象时，new 命令作用的构造函数（下例中p）；
 
 ```js
@@ -400,7 +406,7 @@ var p1 = new p(1, 2, 3); // In Proxy handler, construct function is called
 p1.value // 2
 newTarget === p // false; question ?
 ```
-** 注意：**
+**注意：**
 * `construct` 方法返回的必须是一个对象，否则会报错。
 
 ## Proxy.revocable
@@ -420,7 +426,7 @@ proxy.foo // Uncaught TypeError: Cannot perform 'get' on a proxy that has been r
 
 ## this 问题
 ```
-虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的this关键字会指向 Proxy 代理。
+虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的 this 关键字会指向 Proxy 代理。
 ```
 ```js
 var _name = new WeakMap();

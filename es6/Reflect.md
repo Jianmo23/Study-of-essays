@@ -79,7 +79,7 @@ Reflect.apply(Math.floor, null, [1.75]) // 1
 ```
 Reflect.get方法查找并返回target对象的prop属性，如果没有该属性，则返回undefined。
 ```
-** 注意 **
+**注意：**
 * 如果 `prop` 属性部署了读取函数（`getter`），则读取函数内部的 `this` 绑定 `receiver`
 * 如果第一个参数不是对象，方法会报错
 
@@ -111,7 +111,7 @@ Reflect.get(1, 'foo') // TypeError: Reflect.get called on non-object
 ```
 Reflect.set方法设置target对象的name属性等于value，成功返回 true，反之，返回 false
 ```
-** 注意： **
+**注意：**
 * 如果 `prop` 属性设置了赋值函数（`setter`），则赋值函数的 `this` 绑定 `receiver`。
 * 如果 `Proxy` 对象和 `Reflect` 对象联合使用，前者拦截赋值操作，后者完成赋值的默认行为，而且传入了 `receiver`，那么 `Reflect.set` 会触发 `Proxy.defineProperty` 拦截。
 * 如果第一个参数不是对象，`Reflect.set` 会报错。
@@ -166,8 +166,8 @@ var proxy = new Proxy({
 proxy.name = 'zyy'
 // set 'zyy'
 
-** 因此，Proxy 和 Reflect 联合使用时，在 Proxy.set 方法内部， Reflect.set 方法只有传入 receiver 参数才会触发 Proxy.defineProperty 方法 **
-** 解释：Proxy.set 方法的 receiver 参数总是指向当前 Proxy 实例（本例中指 proxy），因此 Reflect.set 一旦传入 receiver 参数，就相当于将属性赋值到 receiver 上，即 Proxy 实例，由此会触发 Proxy.defineProperty 方法；反之，Proxy.set 内部的 Reflect.set 不传入 receiver 则不会！ **
+**因此，Proxy 和 Reflect 联合使用时，在 Proxy.set 方法内部， Reflect.set 方法只有传入 receiver 参数才会触发 Proxy.defineProperty 方法**
+**解释：Proxy.set 方法的 receiver 参数总是指向当前 Proxy 实例（本例中指 proxy），因此 Reflect.set 一旦传入 receiver 参数，就相当于将属性赋值到 receiver 上，即 Proxy 实例，由此会触发 Proxy.defineProperty 方法；反之，Proxy.set 内部的 Reflect.set 不传入 receiver 则不会**
 
 <!-- 验证三 -->
 Reflect.set(1, 'age', 27) // TypeError: Reflect.set called on non-object
@@ -176,7 +176,7 @@ Reflect.set(1, 'age', 27) // TypeError: Reflect.set called on non-object
 ```
 Reflect.has方法对应name in obj里面的in运算符。
 ```
-** 注意：**
+**注意：**
 *  如果第一个参数不是对象，则 `Reflect.has` 和 `in` 操作会报错
 
 ```js
@@ -195,7 +195,7 @@ Reflect.has(1, 'a') // TypeError: Reflect.has called on non-object
 ```
 Reflect.deleteProperty方法等同于delete obj[name]，用于删除对象的属性。
 ```
-** 注意： **
+**注意：**
 * `Reflect.deleteProperty` 方法返回一个布尔值；如果删除成功或者被删除的属性不存在，返回 `true`； 删除失败，被删除属性依然存在， 返回 `false`
 
 ```js
@@ -221,7 +221,7 @@ Reflect.deleteProperty(obj, 'age') // false
 ```
 Reflect.construct方法等同于new target(...args)，这提供了一种不使用new，来调用构造函数的方法。
 ```
-** 注意： **
+**注意：**
 * `args` 参数需为数组
 
 ```js
@@ -257,7 +257,7 @@ Reflect.getPrototypeOf(1) // Reflect.getPrototypeOf called on non-object
 ```
 Reflect.setPrototypeOf方法用于设置目标对象的原型（prototype），对应Object.setPrototypeOf(obj, newProto)方法。它返回一个布尔值，表示是否设置成功。
 ```
-** 注意：**
+**注意：**
 * 如果无法设置目标对象的原型（比如，目标对象禁止扩展），`Reflect.setPrototypeOf` 方法返回 `false`。
 * 如果第一个参数不是对象，`Object.setPrototypeOf` 会返回第一个参数本身，而 `Reflect.setPrototypeOf` 会报错。
 * 如果第一个参数是 `undefined` 或 `null`，`Object.setPrototypeOf` 和 `Reflect.setPrototypeOf` 都会报错。
@@ -305,7 +305,7 @@ var type = Reflect.apply(Object.prototype.toString, youngest, [])
 ```
 Reflect.defineProperty方法基本等同于Object.defineProperty，用来为对象定义属性。未来，后者会被逐渐废除，请从现在开始就使用Reflect.defineProperty代替它。
 ```
-** 注意：**
+**注意：**
 * 如果 `Reflect.defineProperty` 的第一个参数不是对象，就会抛出错误
 
 ```js
@@ -340,7 +340,7 @@ Reflect.getOwnPropertyDescriptor(1, 'a') // TypeError: Reflect.getOwnPropertyDes
 Reflect.isExtensible方法对应Object.isExtensible，返回一个布尔值，表示当前对象是否可扩展。
 ```
 
-** 注意： **
+**注意：**
 * 如果参数不是对象，`Object.isExtensible` 会返回 `false`，因为非对象本来就是不可扩展的，而 `Reflect.isExtensible` 会报错。
 
 ```js
@@ -352,7 +352,7 @@ Reflect.isExtensible(1) // TypeError: Reflect.isExtensible called on non-object
 Reflect.preventExtensions对应Object.preventExtensions方法，用于让一个对象变为不可扩展。它返回一个布尔值，表示是否操作成功。
 ```
 
-** 注意： **
+**注意：**
 * 如果参数不是对象，`Object.preventExtensions` 在 `ES5` 环境报错，在 `ES6` 环境返回传入的参数，而 `Reflect.preventExtensions` 会报错。
 
 ```js
