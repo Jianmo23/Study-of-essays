@@ -146,13 +146,13 @@ for (var j = 0; j < 4; j++) {
 	countTimes();
 }
 
-<!-- 
+<!--
 输出结果：
 
 count: 1
 count: 2
 count: 3
-count: 4 
+count: 4
 -->
 ```
 
@@ -222,3 +222,4 @@ console.dir(obj);
 
 * 知乎：[JavaScript 中 console 的用法](https://zhuanlan.zhihu.com/p/23080626)
 
+* 掘金：[你不知道的Chrome调试工具技巧](https://juejin.im/post/5c0a8ce6f265da6141716329)
