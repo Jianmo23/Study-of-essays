@@ -1,14 +1,19 @@
 * 时间：`2019-04-23`
 * 运行环境： `macOS 10.14.4  chrome 版本 73.0.3683.86（正式版本)`
 * NodeJS：`node v9.2.1  npm v6.7.0`
-* 更新时间： ``
+* 更新时间： `2019-06-05`
 
 ## `Promise`
 ```
-所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，
+从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
 ```
 ### `Promise` 特点：
-* 对象的状态不受外界影响。`Promise` 对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`（已成功）和 `rejected`（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。
+* 对象的状态不受外界影响。`Promise` 对象代表一个异步操作，有三种状态：
+`pending`（进行中）、
+`fulfilled`（已成功）、
+`rejected`（已失败）。
+只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。
 
 * 一旦状态改变，就不会再变，任何时候都可以得到这个结果。`Promise` 对象的状态改变，只有两种可能：从 `pending` 变为 `fulfilled` 和从 `pending` 变为 `rejected`。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 `resolved`（已定型）。如果改变已经发生了，你再对Promise对象添加回调函数，也会立即得到这个结果。这与事件（`Event`）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
 
@@ -125,7 +130,7 @@ getData('/rest').then(resp => {
 
 ### `Promise.prototype.catch()`
 ```
-Promise.prototype.catch 方法是 .then(null, rejection) 或 .then(undefined, rejection) 的别名，用于指定发生错误时的回调函数。内部返回的是新的Promise对象！
+Promise.prototype.catch 方法是 .then(null, rejection) 或 .then(undefined, rejection) 的别名，用于指定发生错误时的回调函数。内部返回的是新的 Promise 对象！
 ```
 重要的一点是，如果 `.then()` 方法中指定的回调函数运行时产生错误同样可以被 `.catch()` 捕获。
 
@@ -157,7 +162,7 @@ p.catch(resp => {
     console.log(resp)
 });
 
-// 比较上面两种写法，可以发现reject方法的作用，等同于抛出错误。
+// 比较上面两种写法，可以发现 reject 方法的作用，等同于抛出错误。
 ```
 
 **如果 `Promise` 状态已经变成 `resolved`，再抛出错误是无效的。**
