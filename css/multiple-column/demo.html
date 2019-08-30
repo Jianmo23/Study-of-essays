@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 对比column-count与column-width优先级 */
+        .column-count-width {
+            column-count: 4;
+            column-width: 100px;
+            column-rule-color: #f40;
+            column-rule-style: dotted;;
+        }
+        .item {
+            height: 100px;
+            line-height: 20px;
+            text-align: center;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        .column-item-1 {
+            color: red;
+            border-bottom: 1px solid red;
+        }
+        .column-item-2 {
+            color: black;
+            border-bottom: 1px solid black;
+            /* column-span: all; */
+        }
+        .column-item-3 {
+            color: blue;
+            border-bottom: 1px solid blue;
+        }
+        .column-item-4 {
+            color: orange;
+            border-bottom: 1px solid orange;
+        }
+        /* column-fill */
+        .column-fill-auto {
+            margin-top: 30px;
+            column-count: 3;
+            column-fill: auto;
+            column-gap:20px;
+        }
+        .column-fill-balance {
+            margin-top: 30px;
+            column-count: 3;
+            column-fill: balance;
+        }
+        .column-fill-all {
+            margin-top: 30px;
+            column-count: 3;
+            column-fill: balance-all;
+        }
+    </style>
+</head>
+<body>
+    <!-- 对比column-count与column-width优先级 -->
+    <div class="column-count-width">
+        <div class="item column-item-1">11111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+        <div class="item column-item-2">22222222222222222222222222222222222222222222222222222222222222222222222222222</div>
+        <div class="item column-item-3">33333333333333333333333333333333333333333333333333333333333333333333333333333</div>
+        <div class="item column-item-4">444444444444444444444444444444444444444444444444444444444444444444444444444444</div>
+    </div>
+    <hr size="2">
+    <!-- column-fill -->
+    <div class="column-fill-auto">
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+        auto: 按顺序填充每一列。内容只占用它需要的空间。
+    </div>
+    <div class="column-fill-balance">
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+        balance: 默认值。尽可能在列之间平衡内容。在分隔断开的上下文中，只有最后一个片段是平衡的。
+    </div>
+    <div class="column-fill-all">
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+        balance-all（可忽略）: 尽可能在列之间平衡内容。在分隔断开的上下文中，所有片段都是平衡的。
+    </div>
+</body>
+</html>
