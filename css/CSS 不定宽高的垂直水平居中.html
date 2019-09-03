@@ -1,0 +1,174 @@
+<!-- https://juejin.im/post/5c94961df265da60e65b9961 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实验-CSS 不定宽高的垂直水平居中</title>
+    <!-- 实验浏览器版本 -->
+    <meta chrome-version="Mac 版本 76.0.3809.132（正式版本） （64 位）">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h3 {
+            margin: 20px 0 10px;
+        }
+        .container {
+            width: 200px;
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ccc;
+        }
+        /* 法一：使用 flex */
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* 法二：使用 flex + margin */
+        .flex-margin {
+            display: flex;
+        }
+        .flex-margin-center {
+            margin: auto;
+        }
+        /* 法三：transform + absolute */
+        .container-relative {
+            position: relative;
+        }
+        .box-absolute {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+        /* 法四：table-cell */
+        .table-cell {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        /* 法五：absolute + 四个方向的值相等 */
+        .box-absolute2 {
+            width: 170px;
+            height: 20px;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+        /* 法六： writing-mode */
+        .container-writing-mode {
+            writing-mode: vertical-lr;
+            text-align: center; /* 缺少这项没效果 */
+        }
+        .box-writing-mode {
+            writing-mode: horizontal-tb;
+            display: inline-block;
+            width: 100%;
+        }
+        /* 法七：grid */
+        .grid {
+            display: grid;
+            /* justify-items: center;
+            align-items: center; */
+        }
+        .grid-item {
+            align-self: center;
+            justify-self: center;
+        }
+        /* 法八： ::after */
+        .container-after {
+            text-align: center;
+        }
+        .container-after::after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .container-after-box {
+            vertical-align: middle;
+            display: inline-block;
+        }
+        /* 法九： ::before */
+        .container-before {
+            font-size: 0;
+            text-align: center;
+        }
+        .container-before::before {
+            display: inline-block;
+            vertical-align: middle;
+            content: '';
+            height: 100%;
+        }
+        .container-before-box {
+            vertical-align: middle;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h3>法一：使用 flex</h3>
+    <section class="container flex-center">
+        <div class="box">horizontal and vertical</div>
+    </section>
+
+    <h3>法二：使用 flex + margin</h3>
+    <section class="container flex-margin">
+        <div class="box flex-margin-center">horizontal and vertical</div>
+    </section>
+
+    <h3>法三：使用 transform + absolute</h3>
+    <section class="container container-relative">
+        <div class="box box-absolute">horizontal and vertical</div>
+    </section>
+
+    <h3>法四：使用 table-cell</h3>
+    <section class="container table-cell">
+        <div class="box">horizontal and vertical</div>
+    </section>
+
+    <h3>法五：使用 absolute + 四个方向的值相等</h3>
+    <p>使用绝对定位布局，设置 margin:auto;，并设置 top、left、right、bottom 的 值相等即可（不一定要都是 0）。</p>
+    <p>备注：居中元素必须指定宽高 和 设置 margin:auto，否则没效果</p>
+    <section class="container container-relative">
+        <div class="box box-absolute2">horizontal and vertical</div>
+    </section>
+    <p>这种方法一般用于弹出层，需要设置弹出层的宽高。</p>
+
+    <h3>法六：使用 writing-mode 存在兼容性问题</h3>
+    <section class="container container-writing-mode">
+        <div class="box box-writing-mode">horizontal and vertical</div>
+    </section>
+
+    <h3>法七：使用 grid</h3>
+    <section class="container grid">
+        <div class="box grid-item">horizontal and vertical</div>
+    </section>
+    <p>它在兼容性上不如 flex，特别是 IE 浏览器，只支持 IE10 及以上。</p>
+
+    <h3>法八：使用 ::after 不理解？？？</h3>
+    <section class="container container-after">
+        <div class="box container-after-box">horizontal and vertical</div>
+    </section>
+    <p>水平方向很好理解。垂直方向，可以理解为 ::after 把 inline-block 元素往下拉到了中间。</p>
+
+    <h3>法九：使用 ::before</h3>
+    <section class="container container-before">
+        <div class="box container-before-box">horizontal and vertical</div>
+    </section>
+    <p>font-size: 0; 的神秘之处在于，可以消除标签之间的间隙。另外，因为伪元素搭配的，都是最基础的 CSS 写法，所以不存在兼容性的风险。</p>
+
+    <h3>总结</h3>
+    <p>个人感觉，法9和法8没什么区别，除了用 font-size: 0; 消除了标签之间的空白占位；</p>
+</body>
+</html>
