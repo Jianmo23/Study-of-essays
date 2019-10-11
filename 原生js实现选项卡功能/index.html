@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生JS实现tab选项卡功能</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            display: flex;
+            width: 400px;
+            margin: 20% auto 0;
+            list-style: none;
+            text-align: center;
+            line-height: 30px;
+        }
+        ul > li {
+            flex: 1;
+            font-size: 20px;
+            box-shadow: 0 -1px 0 0 #000 inset;
+            margin: 0 1px;
+        }
+        ul > li:hover {
+            cursor: pointer;
+        }
+        .active {
+            color: #fff;
+            background: red;
+            box-shadow: 0 -1px 0 0 red inset;
+        }
+    </style>
+</head>
+<body>
+    <ul id="tabs">
+        <li class="active">选项一</li>
+        <li>选项二</li>
+        <li>选项三</li>
+        <li>选项四</li>
+    </ul>
+</body>
+<script src="./index.js"></script>
+</html>
